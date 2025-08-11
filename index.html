@@ -80,7 +80,7 @@
         </div>
     </section>
 
-    <section id="my-projects">
+    <!-- <section id="my-projects">
         <div class="projects">
             <div class="project-header">
                 <h1 id="project-heading">Projects</h1>
@@ -92,7 +92,6 @@
                     <a href="https://www.youtube.com/watch?v=-nsNqsaW5cQ&t=4s" target="_blank">
                         <img id="backlogz-img" src="images/backlogz.png" alt="backlogz-img">
                     </a>
-                    <!-- <h3 id="sf-hacks">3rd Place Finish @ SF Hacks 2025</h3> -->
                     <div class="tech-stack-backlogz">
                         <span id="react-native">React Native</span>
                         <span id="typescript">TypeScript</span>
@@ -123,6 +122,63 @@
                     <p>project 4</p>
                 </div>
 
+        </div>
+    </section> --> 
+    <section id="my-projects">
+        <div class="project-header">
+            <h1 id="project-heading">Projects</h1>
+        </div>
+        
+        <div class="swiper-container">
+            <div class="swiper-wrapper" id="swiperWrapper">
+                <div class="project-card">
+                    <h1 id="backlogz">Backlogz</h1>
+                    <a href="https://www.youtube.com/watch?v=-nsNqsaW5cQ&t=4s" target="_blank">
+                        <img id="backlogz-img" src="images/backlogz.png" alt="backlogz-img">
+                    </a>
+                    <div class="tech-stack-backlogz">
+                        <span id="react-native">React Native</span>
+                        <span id="typescript">TypeScript</span>
+                        <span id="gemini">Gemini</span>
+                    </div>
+                    <p id="backlogz-description">Backlogz grabs a random topic, asks Google's Gemini AI to whip up a short, conversational summary, and reads it out loud using your phone's text to speech. Think of it like a personalized mini podcast feed made from your own curiosity list.</p>
+                </div>
+
+                <div class="project-card">
+                    <h1 id="askher">AskHer</h1>
+                    <a href="https://devpost.com/software/askher-kfmvob" target="_blank">
+                        <img id="askher-img" src="images/askher.png" alt="askher-img">
+                    </a>
+                    <div class="tech-stack-askher">
+                        <span id="react">React</span>
+                        <span id="fastapi">FastAPI</span>
+                        <span id="supabase">SupaBase</span>
+                        <span id="gemini">Gemini</span>
+                    </div>
+                    <p id="askher-description">Everyone has experienced feelings of isolation and being overwhelmed. AskHer is an anonymous peer support platform where women can safely share what's on their minds, free from fear or judgment while building a collective community grounded in empathy.</p>
+                </div>
+
+                <div class="project-card placeholder-project">
+                    <p>Project 3 Coming Soon</p>
+                </div>
+
+                <div class="project-card placeholder-project">
+                    <p>Project 4 Coming Soon</p>
+                </div>
+
+                <div class="project-card placeholder-project">
+                    <p>Project 5 Coming Soon</p>
+                </div>
+
+                
+            </div>
+
+            <button class="swiper-nav swiper-prev" onclick="slideProjects('prev')">‹</button>
+            <button class="swiper-nav swiper-next" onclick="slideProjects('next')">›</button>
+            
+            <div class="swiper-scrollbar">
+                <div class="swiper-scrollbar-drag" id="scrollbarDrag"></div>
+            </div>
         </div>
     </section>
 
