@@ -2,7 +2,7 @@
 
 document.getElementById("resume-button").addEventListener("click", function () {
     window.open(
-        "https://drive.google.com/file/d/1VZglK26HiJoSObINsGgv9GulPIRWO6KK/view?usp=drive_link",
+        "https://drive.google.com/file/d/1L9kvSOUOAYozJECltSa5EVeunRDUFI5N/view?usp=sharing",
         "_blank"
     );
 });
