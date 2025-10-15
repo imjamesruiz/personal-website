@@ -75,11 +75,9 @@
                         <a href="mailto:jamesgr@uci.edu"><button id="contact-button">Contact Me</button></a>
                     </div> -->
                     <div class="contact-me">
-                        <form class="contact-me" action="mailto:jamesgr@uci.edu" method="get">
-                            <input type="hidden" name="subject" value="Portfolio Inquiry">
-                            <input type="hidden" name="body" value="Hi James,%0D%0A%0D%0A">
-                            <button id="contact-button" type="submit">Contact Me</button>
-                        </form>
+                        <a href="#contact-form">
+                            <button id="contact-button">Contact</button>
+                        </a>
                     </div>
                 </div>
                 
@@ -91,50 +89,6 @@
         </div>
     </section>
 
-    <!-- <section id="my-projects">
-        <div class="projects">
-            <div class="project-header">
-                <h1 id="project-heading">Projects</h1>
-            </div>
-
-            <div class="project-container">
-                <div class="project-card">
-                    <h1 id="backlogz">Backlogz</h1>
-                    <a href="https://www.youtube.com/watch?v=-nsNqsaW5cQ&t=4s" target="_blank">
-                        <img id="backlogz-img" src="images/backlogz.png" alt="backlogz-img">
-                    </a>
-                    <div class="tech-stack-backlogz">
-                        <span id="react-native">React Native</span>
-                        <span id="typescript">TypeScript</span>
-                        <span id="gemini">Gemini</span>
-                    </div>
-                    <p id="backlogz-description">Backlogz grabs a random topic, asks Google's Gemini AI to whip up a short, conversational summary, and reads it out loud using your phone's text to speech. Think of it like a personalized mini podcast feed made from your own curiosity list.</p>
-                </div>
-
-                <div class="project-card">
-                    <h1 id="askher">AskHer</h1>
-                    <a href="https://devpost.com/software/askher-kfmvob" target="_blank"><img id="askher-img" src="images/askher.png" alt="askher-img"></a>
-                    <div class="tech-stack-askher">
-                        <span id="react">React</span>
-                        <span id="fastapi">FastAPI</span>
-                        <span id="supabase">SupaBase</span>
-                        <span id="gemini">Gemini</span>
-                    </div>
-                    <p id="askher-description">Everyone has experienced feelings of isolation and being overwhelmed. AskHer is an anonymous peer support platform where women can safely share what’s on their minds, free from fear or judgment while building a collective community grounded in empathy.</p>
-                </div>
-
-                <div class="project-card">
-                    <img>
-                    <p>project 3</p>
-                </div>
-
-                <div class="project-card">
-                    <img>
-                    <p>project 4</p>
-                </div>
-
-        </div>
-    </section> --> 
     <section id="my-projects">
         <div class="project-header">
             <h1 id="project-heading">Projects</h1>
@@ -266,16 +220,22 @@
                 <img id="nodejs" src="https://th.bing.com/th/id/R.f7337d339216d05c1551688efb13a830?rik=m28qY9WE3BaKXQ&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fnodejs-png-nodejs-icon-png-50-px-1600.png&ehk=XR9ktXGvw5svYVTEqemL7wSEUZL%2bihqTpYBLPSQn8GQ%3d&risl=&pid=ImgRaw&r=0" alt="nodejs-icon">
 
 
-            </div>
         </div>
     </section>
 
-    <!-- <section id="contact-me">
-        <div class="contact">
-            <h1 id="contact-header">Contact</h1>
-            <button id="contact-me-btn">Contact Me</button>
+    <section id="contact-section">
+        <div id="contact-form">
+            <form class="contact-mee" action="mailto:jamesgr@uci.edu" method="get">
+                <fieldset id="contact-fieldset">
+                    <legend id="contact-legend"><h1>Contact Me</h1></legend>
+                    <input type="text" name="subject" placeholder="Portfolio Inquiry">
+                    <input type="email" name="email" id="user_email" placeholder="jamesgr@uci.edu">
+                    <textarea name="body" id="text-body" placeholder="Your message" rows="10" cols="50"></textarea>
+                    <button id="contact-button" type="submit">Sendy</button>
+                </fieldset>
+            </form>
         </div>
-    </section> -->
+    </section>
 
 
     <section id="footer">
@@ -291,3 +251,5 @@
 </body>
 
 </html>
+
+
