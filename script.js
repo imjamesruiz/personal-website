@@ -18,14 +18,14 @@ function initSwiper() {
     const scrollbarDrag = document.getElementById('scrollbarDrag');
     const cards = document.querySelectorAll('.project-card');
     const totalCards = cards.length;
-    const cardWidth = 380; // 350px + 30px margin
+    const cardWidth = 380; 
     
     // calculate width
     function calculateVisibleCards() {
         const container = document.querySelector('.swiper-container');
         if (!container) return 1;
         
-        const containerWidth = container.clientWidth - 160; // minus padding (80px each side)
+        const containerWidth = container.clientWidth - 160; 
         return Math.floor(containerWidth / cardWidth);
     }
     
@@ -65,7 +65,6 @@ function initSwiper() {
 
     window.slideProjects = slideProjects;
 
-    // drag functionality
     let isDragging = false;
     let startX = 0;
     let currentX = 0;
