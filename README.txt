@@ -9,9 +9,11 @@ A1 - Responsive Personal Portfolio built with HTML, CSS, and JavaScript
 The number of assignment points you believe you have completed
 - Going through the rubric for resubmittion, I am advocating for 8/10 points. As I noted above I had completed my portfolio during the summer
 and this was one of the first full stack projects I wanted to build when I started focusing on web development so when I began tweaking it 
-to fit the scope of the assignment, the existing code I made when I was still learning was present throughout the site, and I made the 
-and I made the design choice to just build on top of what I had already instead of starting over. So if the design principles aren't the best
+to fit the scope of the assignment, the existing code I made when I was still learning was present throughout the site,
+and I made the design choice to just build on top of what I had already instead of starting over. A lot of my code was layed out using flex, but now knowing
+grid properties, when I get the chance I will update the site. So if the design principles aren't the best
 please forgive me on that. 
+
 - But I do have
     1. Correct ReadMe text file. 1/1
     2. Includes Basic HTML Content: 2/2
