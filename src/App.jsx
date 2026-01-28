@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const navLinks = [
@@ -50,15 +50,26 @@ const projects = [
       "This was my first hackathon project where my team and I designed an CRUD application using the SpotifyAPI to help users for songs, create playlists, and generate reccomended songs based on user playlists.",
   },
   {
-    title: "Worqly",
-    href: "https://github.com/imjamesruiz/worqly",
-    image: "/images/worqly.png",
-    tech: ["Coming Soon"],
-    description: "Worqly Coming Soon...",
+    title: "MedAI",
+    href: "https://github.com/imjamesruiz/med-ai",
+    image: "/images/medai.png",
+    tech: ["React", "TypeScript", "Tailwind", "PostgreSQL", "Gemini 2.5"],
+    description: 
+    "The complex bureaucratic terminology often complicates the already tedious process of navigating through medical documents. I wanted to make an impact into this dilemma by leveraging agentic workflows and Retrieval-Augmented Generation (RAG) to create a platform that streamlines the entire process start to finish.",
   },
 ];
 
 const experience = [
+  {
+    role: "Software Engineering Intern",
+    company: "ProGroup",
+    logo: "https://media.licdn.com/dms/image/v2/D4D0BAQG5oxiaIAkqdw/company-logo_200_200/company-logo_200_200/0/1701893726297/progroupco_logo?e=2147483647&v=beta&t=ntQunC47MEkXNaA2kRcGaS4SWZqaUaS0GJv8sqyUo6E",
+    link: "https://www.boundaryrss.org/",
+    dates: "Jan. 2026 - Present",
+    bullets: [
+      "free lunch"
+    ],
+  },
   {
     role: "Software Developer",
     company: "Boundary Remote Subsurface Solutions",
@@ -71,7 +82,7 @@ const experience = [
       "Integrated Supabase authentication and Row-Level Security (RLS) for user-specific data access and role-based permissions",
       "Developed scalable FastAPI backend with user-linked AOI filtering and efficient storage of remote sensing assets and metadata",
     ],
-  },
+  }
 ];
 
 const skills = [
@@ -90,6 +101,22 @@ const skills = [
 
 export default function App() {
   const hoveringRef = useRef(false);
+  const [displayedName, setDisplayedName] = useState("");
+  const fullName = "James Ruiz";
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullName.length) {
+        setDisplayedName(fullName.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 150);
+
+    return () => clearInterval(typingInterval);
+  }, []);
 
   useEffect(() => {
     const trailContainer = document.createElement("div");
@@ -141,7 +168,8 @@ export default function App() {
       <header className="header">
         <nav className="nav">
           <a className="logo" href="#about">
-            James Ruiz
+            <span className="typing-text">{displayedName}</span>
+            <span className="cursor-blink">|</span>
           </a>
           <div className="nav-links">
             {navLinks.map((link) => (
@@ -164,10 +192,7 @@ export default function App() {
                 problem-solving and building full-stack applications.
               </p>
               <p>
-                I am a diligent and hardworking student who learns new skills easily and am eager to
-                create practical solutions in software development. What motivates me most is the
-                process of learning; whether it’s exploring new design patterns or diving deeper into
-                new tools, I am constantly improving my craft and gaining new insights every day.
+                larp larp larp larp
               </p>
             </div>
             <div className="actions">
