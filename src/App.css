@@ -10,18 +10,44 @@
   --glow: rgba(255, 255, 255, 0.2);
 }
 
+/* ---- Particle Canvas ---- */
+.particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---- Progress Bar ---- */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.2) 100%);
+  z-index: 200;
+  transition: width 0.08s linear;
+  pointer-events: none;
+}
+
+/* ---- Page ---- */
 .page {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
+  position: relative;
+  isolation: isolate;
 }
 
+
+/* ---- Header ---- */
 .header {
   position: sticky;
   top: 0;
-  z-index: 10;
-  backdrop-filter: blur(12px);
-  background: rgba(11, 11, 13, 0.85);
+  z-index: 100;
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  background: rgba(11, 11, 13, 0.8);
   border-bottom: 1px solid var(--border);
 }
 
@@ -56,25 +82,21 @@
 }
 
 @keyframes blink {
-  0%, 50% {
-    opacity: 1;
-  }
-  51%, 100% {
-    opacity: 0;
-  }
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 .nav-links {
   display: flex;
-  gap: 16px;
-  font-size: 0.9rem;
+  gap: 4px;
+  font-size: 0.875rem;
 }
 
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
-  transition: color 0.2s ease;
-  padding: 6px 10px;
+  transition: color 0.2s ease, background 0.2s ease;
+  padding: 6px 12px;
   border-radius: 999px;
 }
 
@@ -83,29 +105,43 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+.nav-links a.active {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ---- Sections ---- */
 .section {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: 96px 24px;
+  position: relative;
+  z-index: 1;
 }
 
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* ---- Hero ---- */
 .hero {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 48px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 56px;
   align-items: center;
+  padding-top: 80px;
 }
 
 .hero-content h1 {
   font-size: clamp(2.5rem, 4vw, 3.5rem);
   margin: 12px 0 20px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 .eyebrow {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--muted);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
 }
 
@@ -113,32 +149,37 @@
   display: grid;
   gap: 12px;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.75;
+  max-width: 480px;
 }
 
-.actions {
-  display: flex;
-  gap: 12px;
-  margin: 24px 0 18px;
-  flex-wrap: wrap;
-}
 
+/* ---- Buttons ---- */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  padding: 10px 22px;
-  font-size: 0.95rem;
+  padding: 10px 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
   text-decoration: none;
   border: 1px solid transparent;
-  transition: transform 0.2s ease, border 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
+  letter-spacing: 0.01em;
+  font-family: inherit;
 }
 
 .button.primary {
   background: var(--accent);
   color: #111114;
+}
+
+.button.primary:hover {
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
 }
 
 .button.ghost {
@@ -147,115 +188,227 @@
   background: transparent;
 }
 
-.button:hover {
+.button.ghost:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
   transform: translateY(-1px);
 }
 
+/* ---- Icon Action Buttons ---- */
+.icon-actions {
+  display: flex;
+  gap: 10px;
+  margin: 28px 0 0;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+.icon-btn-resume {
+  width: auto;
+  padding: 0 20px;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: 14px;
+}
+
+/* ---- Socials ---- */
 .socials {
   display: flex;
-  gap: 18px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .socials a {
   color: var(--muted);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.socials a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--text);
+  transition: width 0.25s ease;
 }
 
 .socials a:hover {
   color: var(--text);
 }
 
+.socials a:hover::after {
+  width: 100%;
+}
+
+/* ---- Hero Photo ---- */
 .hero-photo {
   display: flex;
   justify-content: center;
 }
 
-.hero-photo img {
-  width: min(320px, 100%);
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+.photo-ring {
+  position: relative;
+  width: fit-content;
 }
 
+.photo-ring::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  z-index: 0;
+}
+
+.photo-ring img {
+  position: relative;
+  z-index: 1;
+  width: min(300px, 100%);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(255, 255, 255, 0.03);
+  display: block;
+}
+
+/* ---- Section Titles ---- */
 .section-title {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   display: grid;
   gap: 8px;
 }
 
 .section-title h2 {
-  font-size: 2rem;
+  font-size: 1.85rem;
   margin: 0;
+  letter-spacing: -0.025em;
 }
 
 .section-title p {
   color: var(--muted);
   margin: 0;
+  font-size: 0.95rem;
 }
 
+/* ---- Projects ---- */
 .project-list {
   display: grid;
-  gap: 22px;
+  gap: 14px;
 }
 
 .project-row {
   display: grid;
-  grid-template-columns: minmax(220px, 320px) 1fr;
+  grid-template-columns: minmax(200px, 270px) 1fr;
   gap: 24px;
-  padding: 22px;
+  padding: 20px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+}
+
+.project-row:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
 }
 
 .project-media {
   display: block;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .project-media img {
   width: 100%;
-  height: 190px;
+  height: 175px;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 .project-media:hover img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .project-content {
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .project-content h3 {
   margin: 0 0 8px;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .tags span {
-  padding: 6px 12px;
+  padding: 4px 11px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--muted);
+  letter-spacing: 0.02em;
 }
 
+/* ---- Experience ---- */
 .stack {
   display: grid;
-  gap: 20px;
+  gap: 14px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .experience-card {
@@ -270,38 +423,90 @@
   align-items: flex-start;
 }
 
+.experience-header h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
 .company {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  color: var(--text);
+  gap: 9px;
+  color: var(--muted);
   text-decoration: none;
-  margin-top: 6px;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.company:hover {
+  color: var(--text);
 }
 
 .company img {
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.logo-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--border);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.dates {
+  font-size: 0.82rem;
+  white-space: nowrap;
+  padding-top: 2px;
 }
 
 .experience-card ul {
-  margin: 16px 0 0 18px;
+  margin: 16px 0 0 20px;
   color: var(--muted);
   display: grid;
-  gap: 10px;
-  line-height: 1.6;
+  gap: 8px;
+  line-height: 1.65;
+  font-size: 0.9rem;
+  padding: 0;
 }
 
 .muted {
   color: var(--muted);
 }
 
-.skills {
-  display: flex;
-  flex-wrap: wrap;
+/* ---- Skills ---- */
+.skill-groups {
+  display: grid;
+  gap: 22px;
+}
+
+.skill-group {
+  display: grid;
   gap: 10px;
 }
 
+.skill-category {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Contact ---- */
 .contact {
   display: grid;
   gap: 16px;
@@ -312,7 +517,8 @@
   display: grid;
   gap: 6px;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
 }
 
 .contact input,
@@ -320,18 +526,38 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 12px;
+  padding: 12px 14px;
   color: var(--text);
   font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  resize: vertical;
 }
 
+.contact input:focus,
+.contact textarea:focus {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
+}
+
+.contact input::placeholder,
+.contact textarea::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---- Footer ---- */
 .footer {
-  padding: 30px 24px 40px;
+  padding: 32px 24px 44px;
   text-align: center;
   color: var(--muted);
   border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  position: relative;
+  z-index: 1;
 }
 
+/* ---- Cursor Trail ---- */
 .cursor-trail {
   position: fixed;
   inset: 0;
@@ -341,26 +567,39 @@
 
 .trail-dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.14);
   transform: translate(-50%, -50%);
-  filter: blur(0.2px);
-  opacity: 0.75;
-  transition: transform 0.6s ease, opacity 0.6s ease, background 0.4s ease;
+  filter: blur(0.5px);
+  opacity: 0.7;
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
 .trail-dot.fade {
-  transform: translate(-50%, -50%) scale(2.2);
+  transform: translate(-50%, -50%) scale(2.5);
   opacity: 0;
 }
 
 .trail-dot.hover {
-  background: rgba(255, 255, 255, 0.45);
-  box-shadow: 0 0 12px var(--glow);
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 0 10px var(--glow);
 }
 
+/* ---- Reveal Animations ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Responsive ---- */
 @media (max-width: 720px) {
   .nav {
     flex-direction: column;
@@ -372,11 +611,20 @@
     justify-content: center;
   }
 
+  .hero {
+    padding-top: 48px;
+    gap: 40px;
+  }
+
   .project-row {
     grid-template-columns: 1fr;
   }
 
   .project-media img {
     height: 180px;
+  }
+
+  .experience-header {
+    gap: 4px;
   }
 }
