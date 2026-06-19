@@ -115,18 +115,29 @@ const projects = [
     image: "/images/zotfy.jpg",
     tech: ["React", "Flask", "HTML", "CSS"],
     description:
-      "My first hackathon project — a Spotify-powered CRUD app to search songs, create playlists, and generate recommendations based on listening history.",
+      "My first hackathon project - a Spotify-powered CRUD app to search songs, create playlists, and generate recommendations based on listening history.",
   },
 ];
 
 const experience = [
+  {
+    role: "Incoming Software Implementation Consultant Intern",
+    company: "One Inc",
+    logo: "/images/oneinc.png",
+    initials: null,
+    link: "https://www.oneinc.com/",
+    dates: "Jun. 2026 - Present",
+    bullets: [
+      "Incoming role focused on software implementation and client-facing technical delivery.",
+    ],
+  },
   {
     role: "Software Engineering Intern",
     company: "ProGroup",
     logo: "https://media.licdn.com/dms/image/v2/D4D0BAQG5oxiaIAkqdw/company-logo_200_200/company-logo_200_200/0/1701893726297/progroupco_logo?e=2147483647&v=beta&t=ntQunC47MEkXNaA2kRcGaS4SWZqaUaS0GJv8sqyUo6E",
     initials: null,
     link: "https://www.linkedin.com/company/progroupco/",
-    dates: "Jan. 2026 – Present",
+    dates: "Jan. 2026 – June 2026",
     bullets: [
       "Analyzed production usage data from a multi-tenant license analytics platform to validate automated license evaluation logic.",
       "Developed data extraction and normalization pipelines for Revit and Autodesk logs, enabling scalable ingestion of high-volume telemetry data using AWS (EC2, S3) with Cognito-based multi-tenant authentication.",
@@ -321,10 +332,10 @@ export default function App() {
             <h1>James Ruiz</h1>
             <div className="hero-copy">
               <p>
-                I build scalable backend systems and full-stack products — from cloud-deployed microservices to AI-powered tools. I care about engineering things that actually work at scale.
+                I build scalable backend systems and full-stack products. I work on cloud-deployed microservices and AI-powered tools. I care about engineering things that actually work at scale.
               </p>
               <p>
-                Currently a Software Engineering Intern at ProGroup, working on production data pipelines and multi-tenant backend services. Expected to graduate June 2027.
+                Most recently, I was a Software Engineering Intern at ProGroup, working on production data pipelines and multi-tenant backend services. Expected to graduate June 2027.
               </p>
             </div>
             <div className="icon-actions">
@@ -354,9 +365,8 @@ export default function App() {
               </a>
               <a
                 className="icon-btn icon-btn-resume"
-                href="https://drive.google.com/file/d/1L9kvSOUOAYozJECltSa5EVeunRDUFI5N/view?usp=sharing"
-                target="_blank"
-                rel="noreferrer"
+                href="mailto:jamesgr@uci.edu?subject=Resume%20Request&body=Hi%20James%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20request%20your%20resume.%0A%0AThanks!"
+                aria-label="Request resume via email"
                 data-interactive
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
@@ -365,13 +375,13 @@ export default function App() {
                   <line x1="12" y1="12" x2="12" y2="18" />
                   <polyline points="9 15 12 18 15 15" />
                 </svg>
-                resume
+                request resume
               </a>
             </div>
           </div>
           <div className="hero-photo">
             <div className="photo-ring">
-              <img src="/icons/headshot.png" alt="James Ruiz headshot" />
+              <img src="/icons/newHeadshot.jpeg" alt="James Ruiz headshot" />
             </div>
           </div>
         </section>
