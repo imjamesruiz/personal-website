@@ -94,12 +94,20 @@ const projects = [
       "An anonymous peer support platform where women can safely share what's on their minds, free from fear or judgment, while building a collective community grounded in empathy.",
   },
   {
-    title: "MedAI",
-    href: "https://github.com/imjamesruiz/med-ai",
-    image: "/images/medai.png",
-    tech: ["React", "TypeScript", "Tailwind", "PostgreSQL", "Gemini 2.5"],
+    title: "FabFlix",
+    href: "https://github.com/uci-jherold2-2026fall-cs122b/2026-spring-cs-122b-sixseven",
+    image: "/images/fabflix.png",
+    tech: ["Java", "JSP/Servlets", "MySQL", "MongoDB", "Maven", "Apache Tomcat", "JMeter"],
     description:
-      "Complex medical bureaucracy, simplified. Leverages agentic workflows and Retrieval-Augmented Generation (RAG) to streamline navigation of medical documents from start to finish.",
+      "Movie e-commerce platform with search, browsing, pagination, checkout, and session-based cart flows over a normalized 9-table MySQL schema. Built with secure PreparedStatement queries, encrypted passwords, and Google reCAPTCHA, then load-tested with JMeter at 100-200 concurrent threads and 43,000+ requests.",
+  },
+  {
+    title: "Fantasy Football Draft Selector",
+    href: "https://www.youtube.com/watch?v=I27pwlpSZyA&t=504s",
+    image: "/images/fantasyfootballalgos.png",
+    tech: ["Python", "AVL Tree", "B-Tree", "Data Structures", "NFL API"],
+    description:
+      "Comparative study of AVL trees and B-trees for fantasy football draft analysis. Built a system that scores players from NFL statistics, filters by score ranges, and compares query performance across both tree structures.",
   },
   {
     title: "Ping",
