@@ -136,7 +136,7 @@ const experience = [
     link: "https://www.oneinc.com/",
     dates: "Jun. 2026 - Present",
     bullets: [
-      "Incoming role focused on software implementation and client-facing technical delivery.",
+      "Implemented digital payment workflows for insurance providers by configuring API-routed inbound payments, custom payment modals, and production-ready client integrations",
     ],
   },
   {
@@ -154,7 +154,7 @@ const experience = [
     ],
   },
   {
-    role: "Systems Engineer",
+    role: "DASH Consultant",
     company: "Division of Teaching Excellence & Innovation, UC Irvine",
     logo: null,
     initials: "UCI",
@@ -197,12 +197,16 @@ const skillGroups = [
   },
   {
     category: "Cloud & DevOps",
-    items: ["AWS (EC2, S3, Lambda)", "Docker", "GitHub Actions", "Cognito", "CloudWatch", "Serverless"],
+    items: ["AWS (EC2, S3, Lambda)", "Terraform", "Docker", "Kubernetes", "Jenkins", "Cognito", "CloudWatch", "Serverless"],
   },
   {
     category: "Frontend & Tools",
     items: ["React", "Tailwind CSS", "HTML/CSS", "Git", "Agile"],
   },
+  {
+    category: "Tools and Systems",
+    items: ["Linux", "Bash", "CI/CD", "Unit Testing", "Agile Methodologies"],
+  }
 ];
 
 export default function App() {
