@@ -1,89 +1,111 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
-function ParticleBackground() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    let animId;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const COUNT = 90;
-    const particles = Array.from({ length: COUNT }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.4 + 0.3,
-      alpha: Math.random() * 0.4 + 0.08,
-      speed: Math.random() * 0.28 + 0.08,
-      phase: Math.random() * Math.PI * 2,
-      freq: Math.random() * 0.018 + 0.008,
-      amp: Math.random() * 0.55 + 0.2,
-    }));
-
-    let t = 0;
-    const draw = () => {
-      t++;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const p of particles) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-        ctx.fill();
-
-        p.x += p.amp * Math.sin(t * p.freq + p.phase);
-        p.y += p.speed;
-
-        if (p.x < -8) p.x = canvas.width + 8;
-        else if (p.x > canvas.width + 8) p.x = -8;
-        if (p.y > canvas.height + 8) {
-          p.y = -8;
-          p.x = Math.random() * canvas.width;
-        }
-      }
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="particle-canvas" />;
-}
+const NAME = "James Ruiz";
+const EMAIL = "jamesgr@uci.edu";
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
 
-const socialLinks = [
-  { label: "GitHub", href: "https://github.com/imjamesruiz" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/james-ruiz-a61157246/" },
-  { label: "Medium", href: "https://medium.com/@imjamesruiz" },
-  { label: "YouTube", href: "https://www.youtube.com/@jamesruizcodes" },
+const heroLinks = [
+  { label: "Get in touch", href: `mailto:${EMAIL}`, icon: "mail" },
+  { label: "Resume", href: "/resume.pdf", icon: "file", external: true },
+  { label: "GitHub", href: "https://github.com/imjamesruiz", icon: "github", external: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/imjamesruiz", icon: "linkedin", external: true },
+];
+
+const marquee = [
+  "Java", "Python", "TypeScript", "React", "Spring Boot", "Kubernetes", "AWS",
+  "Docker", "Terraform", "Snowflake", "dbt", "PostgreSQL", "GitHub Actions", "Jenkins",
+];
+
+const experience = [
+  {
+    company: "Harbinger Motors",
+    role: "Incoming MES Software Engineering Intern",
+    dates: "1/27 – 3/27",
+    logo: null,
+    initials: "H",
+    link: "https://www.harbingermotors.com/",
+    upcoming: true,
+    description:
+      "Joining the manufacturing execution systems team to build software that runs the production floor for Harbinger's electric commercial vehicles.",
+    tech: [],
+  },
+  {
+    company: "One Inc",
+    role: "Software Implementation Consultant Intern",
+    dates: "6/26 – 8/26",
+    logo: "/images/oneinc.png",
+    link: "https://www.oneinc.com/",
+    description:
+      "Translated integration requirements across 4+ enterprise implementations into PremiumPay REST API and webhook configurations for platforms including Guidewire. Managed rollout through 9 test and production environments, ran 50+ UAT and API validation tests, and cut mean error-diagnosis time by 60% by mining Grafana request logs.",
+    tech: ["REST APIs", "Webhooks", "Postman", "Grafana", "Guidewire"],
+  },
+  {
+    company: "ProGroup",
+    role: "Software Engineering Intern",
+    dates: "1/26 – 6/26",
+    logo: "https://media.licdn.com/dms/image/v2/D4D0BAQG5oxiaIAkqdw/company-logo_200_200/company-logo_200_200/0/1701893726297/progroupco_logo?e=2147483647&v=beta&t=ntQunC47MEkXNaA2kRcGaS4SWZqaUaS0GJv8sqyUo6E",
+    link: "https://www.linkedin.com/company/progroupco/",
+    description:
+      "Built backend extraction and normalization services for a multi-tenant license analytics platform, processing 70,000+ Revit/Autodesk telemetry records. Improved aggregation accuracy by 40% with SQL and Prisma anomaly detection, and added non-blocking ingestion safeguards so malformed records no longer stalled the pipeline.",
+    tech: ["TypeScript", "Next.js", "Prisma", "SQL", "AWS"],
+  },
+  {
+    company: "Cognitive Neuroscience of Sleep Lab",
+    role: "Data Engineering Research Assistant",
+    dates: "10/25 – 2/26",
+    logo: null,
+    initials: "UCI",
+    link: "https://www.uci.edu/",
+    description:
+      "Defined data requirements with researchers and built a Python ETL pipeline processing 1,524 files (361 MB) of wearable sensor data over an 80-day study, with automated device sync and run logs for failure triage and backfills.",
+    tech: ["Python", "ETL", "Data Pipelines"],
+  },
+  {
+    company: "DTEI — DASH",
+    role: "Digital Consultant",
+    dates: "3/25 – 4/26",
+    logo: null,
+    initials: "UCI",
+    link: "https://dtei.uci.edu/",
+    description:
+      "Audited and remediated 400+ instructional documents and sites against ADA, Section 508, and WCAG 2.1 AA. Reworked semantic HTML, ARIA roles, contrast, and keyboard navigation, improving instructional efficiency by 25% for 35,000+ students.",
+    tech: ["HTML", "CSS", "JavaScript", "ARIA", "WCAG"],
+  },
 ];
 
 const projects = [
   {
-    title: "Backlogz",
-    href: "https://www.youtube.com/watch?v=-nsNqsaW5cQ&t=4s",
-    image: "/images/backlogz.png",
-    tech: ["React Native", "TypeScript", "Gemini"],
+    title: "Cloud-Native Microservices Task Platform",
+    href: "https://github.com/imjamesruiz/cloudtask",
+    image: null,
+    tech: ["Java", "Spring Boot", "React", "Kubernetes", "AWS EKS", "GitHub Actions"],
     description:
-      "Backlogz grabs a random topic, asks Google's Gemini AI to whip up a short conversational summary, and reads it aloud using your phone's text-to-speech. Think of it like a personalized mini podcast feed made from your own curiosity list.",
+      "6-service Spring Boot platform with 20+ REST endpoints, JWT auth, and RBAC. Migrated from ECS to Kubernetes on EKS with Helm-based CI/CD, cutting per-service rebuilds from 2 min to 20 s.",
+    terminal: ["$ kubectl get deploy", "task-svc     3/3  Running", "auth-svc     2/2  Running", "gateway      2/2  Running"],
+  },
+  {
+    title: "Retail Inventory Analytics Warehouse",
+    href: "https://github.com/imjamesruiz/retail-inventory-analytics-warehouse",
+    image: null,
+    tech: ["Python", "Snowflake", "dbt", "AWS S3", "Terraform", "Jenkins"],
+    description:
+      "Unified four data sources into Snowflake through a Python + dbt ELT pipeline. 38 Terraform resources and 77 automated data tests, sustaining a 100% success rate across 360 Jenkins runs.",
+    terminal: ["$ dbt test", "77 of 77 PASS", "$ terraform plan", "38 resources · no drift"],
+  },
+  {
+    title: "FabFlix",
+    href: "https://github.com/uci-jherold2-2026fall-cs122b/2026-spring-cs-122b-sixseven",
+    image: "/images/fabflix.png",
+    tech: ["Java", "MySQL", "MongoDB", "Tomcat", "JMeter"],
+    description:
+      "Movie e-commerce platform over a normalized 9-table MySQL schema, load-tested with JMeter at 200 concurrent threads and 43,000+ requests.",
   },
   {
     title: "AskHer",
@@ -91,168 +113,390 @@ const projects = [
     image: "/images/ask-her.png",
     tech: ["React", "FastAPI", "Supabase", "Gemini"],
     description:
-      "An anonymous peer support platform where women can safely share what's on their minds, free from fear or judgment, while building a collective community grounded in empathy.",
+      "Anonymous peer-support platform where women can share what's on their minds, free from judgment.",
   },
   {
-    title: "FabFlix",
-    href: "https://github.com/uci-jherold2-2026fall-cs122b/2026-spring-cs-122b-sixseven",
-    image: "/images/fabflix.png",
-    tech: ["Java", "JSP/Servlets", "MySQL", "MongoDB", "Maven", "Apache Tomcat", "JMeter"],
+    title: "Backlogz",
+    href: "https://www.youtube.com/watch?v=-nsNqsaW5cQ&t=4s",
+    image: "/images/backlogz.png",
+    tech: ["React Native", "TypeScript", "Gemini"],
     description:
-      "Movie e-commerce platform with search, browsing, pagination, checkout, and session-based cart flows over a normalized 9-table MySQL schema. Built with secure PreparedStatement queries, encrypted passwords, and Google reCAPTCHA, then load-tested with JMeter at 100-200 concurrent threads and 43,000+ requests.",
+      "Turns your curiosity list into a personal mini-podcast: Gemini summarizes a random topic and reads it aloud.",
   },
   {
     title: "Fantasy Football Draft Selector",
     href: "https://www.youtube.com/watch?v=I27pwlpSZyA&t=504s",
     image: "/images/fantasyfootballalgos.png",
-    tech: ["Python", "AVL Tree", "B-Tree", "Data Structures", "NFL API"],
+    tech: ["Python", "AVL Tree", "B-Tree"],
     description:
-      "Comparative study of AVL trees and B-trees for fantasy football draft analysis. Built a system that scores players from NFL statistics, filters by score ranges, and compares query performance across both tree structures.",
-  },
-  {
-    title: "Ping",
-    href: "https://github.com/imjamesruiz/ping",
-    image: "/images/ping.png",
-    tech: ["React", "Express", "MongoDB", "Chakra UI"],
-    description:
-      "A modern habit tracking app with calendar features and streak tracking to stay aligned with personal goals. Built to solve my own struggles with building consistent habits.",
-  },
-  {
-    title: "Zotify",
-    href: "https://github.com/imjamesruiz/ZotHacks-2024",
-    image: "/images/zotfy.jpg",
-    tech: ["React", "Flask", "HTML", "CSS"],
-    description:
-      "My first hackathon project - a Spotify-powered CRUD app to search songs, create playlists, and generate recommendations based on listening history.",
-  },
-];
-
-const experience = [
-  {
-    role: "Incoming Software Implementation Consultant Intern",
-    company: "One Inc",
-    logo: "/images/oneinc.png",
-    initials: null,
-    link: "https://www.oneinc.com/",
-    dates: "Jun. 2026 - Present",
-    bullets: [
-      "Implemented digital payment workflows for insurance providers by configuring API-routed inbound payments, custom payment modals, and production-ready client integrations",
-    ],
-  },
-  {
-    role: "Software Engineering Intern",
-    company: "ProGroup",
-    logo: "https://media.licdn.com/dms/image/v2/D4D0BAQG5oxiaIAkqdw/company-logo_200_200/company-logo_200_200/0/1701893726297/progroupco_logo?e=2147483647&v=beta&t=ntQunC47MEkXNaA2kRcGaS4SWZqaUaS0GJv8sqyUo6E",
-    initials: null,
-    link: "https://www.linkedin.com/company/progroupco/",
-    dates: "Jan. 2026 – June 2026",
-    bullets: [
-      "Analyzed production usage data from a multi-tenant license analytics platform to validate automated license evaluation logic.",
-      "Developed data extraction and normalization pipelines for Revit and Autodesk logs, enabling scalable ingestion of high-volume telemetry data using AWS (EC2, S3) with Cognito-based multi-tenant authentication.",
-      "Identified duplicate records and ingestion anomalies using SQL and Prisma, improving downstream aggregation reliability.",
-      "Engineered backend validation and non-blocking ingestion safeguards in Next.js/TypeScript APIs, improving reliability and fault tolerance of production services.",
-    ],
-  },
-  {
-    role: "DASH Consultant",
-    company: "Division of Teaching Excellence & Innovation, UC Irvine",
-    logo: null,
-    initials: "UCI",
-    link: "https://dtei.uci.edu/",
-    dates: "Oct. 2025 – Feb. 2026",
-    bullets: [
-      "Built automated compliance pipelines processing 200+ digital assets weekly, reducing manual review time by 60%.",
-      "Developed assistive-technology-driven automation using DOM inspection and accessibility APIs, improving WCAG 2.1 AA compliance scores by 45%.",
-      "Designed internal tooling enabling 30+ faculty to independently audit and remediate content with 75% fewer revision cycles.",
-    ],
-  },
-  {
-    role: "Software Developer",
-    company: "Boundary Remote Subsurface Solutions",
-    logo: "/images/logo_white.png",
-    initials: null,
-    link: "https://www.boundaryrss.org/",
-    dates: "March 2025 – Dec. 2025",
-    bullets: [
-      "Designed and implemented a full-stack geospatial intelligence platform integrating ASF SAR and USGS M2M APIs for dynamic AOI-based satellite data retrieval.",
-      "Built scalable FastAPI backend services supporting user-linked AOI filtering and efficient storage of remote sensing assets and metadata.",
-      "Developed automated spatial/temporal deduplication pipelines exporting standardized datasets (GeoJSON, GPKG).",
-      "Architected cloud deployment on AWS EC2 and S3 with Dockerized FastAPI services for scalable geospatial dataset ingestion.",
-    ],
+      "Compares AVL and B-tree query performance for scoring and filtering NFL players during a draft.",
   },
 ];
 
 const skillGroups = [
-  {
-    category: "Languages",
-    items: ["Python", "Java", "C/C++", "TypeScript", "JavaScript", "SQL"],
-  },
-  {
-    category: "Backend",
-    items: ["FastAPI", "Node.js", "Express", "Spring Boot", "REST APIs", "JWT Auth", "API Design"],
-  },
-  {
-    category: "Databases",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Prisma", "pgvector", "NoSQL"],
-  },
-  {
-    category: "Cloud & DevOps",
-    items: ["AWS (EC2, S3, Lambda)", "Terraform", "Docker", "Kubernetes", "Jenkins", "Cognito", "CloudWatch", "Serverless"],
-  },
-  {
-    category: "Frontend & Tools",
-    items: ["React", "Tailwind CSS", "HTML/CSS", "Git", "Agile"],
-  },
-  {
-    category: "Tools and Systems",
-    items: ["Linux", "Bash", "CI/CD", "Unit Testing", "Agile Methodologies"],
-  }
+  { category: "Languages", items: ["Java", "Python", "SQL", "TypeScript", "JavaScript", "C++", "HTML", "CSS"] },
+  { category: "Cloud & DevOps", items: ["AWS (EKS, ECS, EC2, S3, Lambda, RDS, IAM)", "Docker", "Kubernetes", "Terraform", "Jenkins", "GitHub Actions"] },
+  { category: "Data", items: ["ETL / ELT", "Snowflake", "dbt", "MySQL", "PostgreSQL", "SQL Server"] },
+  { category: "Delivery", items: ["Requirements gathering", "Stakeholder communication", "UAT", "Agile / Scrum", "Technical docs"] },
 ];
 
-export default function App() {
-  const hoveringRef = useRef(false);
-  const [displayedName, setDisplayedName] = useState("");
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState("about");
-  const fullName = "James Ruiz";
+const icons = {
+  mail: (
+    <path d="M4 6h16v12H4z M4 7l8 6 8-6" />
+  ),
+  file: (
+    <>
+      <path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z" />
+      <path d="M14 3v5h5" />
+    </>
+  ),
+  github: (
+    <path d="M9 19c-4 1.5-4-2-6-2.5m12 5v-3.5a3 3 0 00-.9-2.3c3-.3 6.1-1.5 6.1-6.6a5.2 5.2 0 00-1.4-3.6 4.8 4.8 0 00-.1-3.6s-1.1-.3-3.7 1.4a12.6 12.6 0 00-6.6 0C5.8 1.6 4.7 1.9 4.7 1.9a4.8 4.8 0 00-.1 3.6A5.2 5.2 0 003.2 9.1c0 5.1 3.1 6.3 6.1 6.6a3 3 0 00-.9 2.3V21.5" />
+  ),
+  linkedin: (
+    <>
+      <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z" />
+      <path d="M2 9h4v12H2z" />
+      <circle cx="4" cy="4" r="2" />
+    </>
+  ),
+  arrow: <path d="M7 17L17 7M9 7h8v8" />,
+  arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
+  copy: (
+    <>
+      <rect x="9" y="9" width="12" height="12" rx="2" />
+      <path d="M5 15V5a2 2 0 012-2h10" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-3.5-3.5" />
+    </>
+  ),
+};
+
+function Icon({ name, size = 16 }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {icons[name]}
+    </svg>
+  );
+}
+
+const prefersReducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const isMac = () => /Mac|iPhone|iPad/.test(navigator.platform);
+
+const pacificTime = () =>
+  new Date().toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/Los_Angeles",
+  });
+
+// Types the name out one letter at a time, then leaves a blinking caret
+function TypedName({ text }) {
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
+    if (prefersReducedMotion()) {
+      setCount(text.length);
+      return;
+    }
     let i = 0;
-    const id = setInterval(() => {
-      if (i <= fullName.length) {
-        setDisplayedName(fullName.slice(0, i++));
-      } else {
-        clearInterval(id);
+    let interval;
+    const start = setTimeout(() => {
+      interval = setInterval(() => {
+        i += 1;
+        setCount(i);
+        if (i >= text.length) clearInterval(interval);
+      }, 110);
+    }, 400);
+    return () => {
+      clearTimeout(start);
+      clearInterval(interval);
+    };
+  }, [text]);
+
+  return (
+    <h1 className="name" aria-label={text}>
+      <span aria-hidden="true">{text.slice(0, count)}</span>
+      <span className={`caret${count >= text.length ? " done" : ""}`} aria-hidden="true" />
+    </h1>
+  );
+}
+
+// Ctrl/⌘ + K menu for jumping around the site
+function CommandPalette({ open, onClose, actions }) {
+  const [query, setQuery] = useState("");
+  const [active, setActive] = useState(0);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    setQuery("");
+    setActive(0);
+    requestAnimationFrame(() => inputRef.current?.focus());
+  }, [open]);
+
+  useEffect(() => setActive(0), [query]);
+
+  if (!open) return null;
+
+  const q = query.trim().toLowerCase();
+  const results = actions.filter((a) => `${a.label} ${a.group}`.toLowerCase().includes(q));
+
+  const run = (action) => {
+    onClose();
+    action.run();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActive((i) => Math.min(i + 1, results.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActive((i) => Math.max(i - 1, 0));
+    } else if (e.key === "Enter" && results[active]) {
+      e.preventDefault();
+      run(results[active]);
+    } else if (e.key === "Escape") {
+      onClose();
+    }
+  };
+
+  return (
+    <div className="palette-backdrop" onClick={onClose}>
+      <div
+        className="palette"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command menu"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="palette-input">
+          <Icon name="search" size={18} />
+          <input
+            ref={inputRef}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Search or jump to…"
+            aria-label="Search commands"
+          />
+          <kbd>esc</kbd>
+        </div>
+        <ul className="palette-list" role="listbox">
+          {results.length === 0 && <li className="palette-empty">No results</li>}
+          {results.map((action, i) => (
+            <li
+              key={action.label}
+              role="option"
+              aria-selected={i === active}
+              className={i === active ? "active" : ""}
+              ref={i === active ? (el) => el?.scrollIntoView({ block: "nearest" }) : undefined}
+              onMouseEnter={() => setActive(i)}
+              onClick={() => run(action)}
+            >
+              <Icon name={action.icon} />
+              <span>{action.label}</span>
+              <span className="palette-group">{action.group}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function ProjectCard({ project }) {
+  const ref = useRef(null);
+
+  // 3D tilt + glare that follows the pointer
+  const handleMove = (e) => {
+    if (prefersReducedMotion()) return;
+    const el = ref.current;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    el.style.setProperty("--rx", `${(0.5 - y) * 6}deg`);
+    el.style.setProperty("--ry", `${(x - 0.5) * 8}deg`);
+    el.style.setProperty("--gx", `${x * 100}%`);
+    el.style.setProperty("--gy", `${y * 100}%`);
+  };
+
+  const handleLeave = () => {
+    const el = ref.current;
+    el.style.setProperty("--rx", "0deg");
+    el.style.setProperty("--ry", "0deg");
+  };
+
+  return (
+    <a
+      ref={ref}
+      href={project.href}
+      target="_blank"
+      rel="noreferrer"
+      className="project-card reveal"
+      onPointerMove={handleMove}
+      onPointerLeave={handleLeave}
+    >
+      <div className="project-media">
+        {project.image ? (
+          <img src={project.image} alt={`${project.title} preview`} loading="lazy" />
+        ) : (
+          <div className="terminal" aria-hidden="true">
+            <div className="terminal-bar">
+              <span /><span /><span />
+            </div>
+            {project.terminal.map((line, i) => (
+              <code key={line} style={{ animationDelay: `${0.4 + i * 0.35}s` }}>
+                {line}
+              </code>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="project-body">
+        <h3>
+          {project.title}
+          <span className="arrow"><Icon name="arrow" size={18} /></span>
+        </h3>
+        <p>{project.description}</p>
+        <p className="tech-line">{project.tech.join(" · ")}</p>
+      </div>
+      <span className="glare" aria-hidden="true" />
+    </a>
+  );
+}
+
+export default function App() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [navVisible, setNavVisible] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [toast, setToast] = useState({ message: "", show: false });
+  const [time, setTime] = useState(pacificTime);
+  const toastTimer = useRef(null);
+  const timelineRef = useRef(null);
+  const modKey = isMac() ? "⌘" : "Ctrl";
+
+  // Scroll progress bar, nav reveal, and experience timeline fill
+  useEffect(() => {
+    let frame;
+    const update = () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
+      setNavVisible(window.scrollY > 320);
+
+      const timeline = timelineRef.current;
+      if (!timeline) return;
+      const line = window.innerHeight * 0.6;
+      const rect = timeline.getBoundingClientRect();
+      const fill = Math.min(Math.max((line - rect.top) / rect.height, 0), 1);
+      timeline.style.setProperty("--fill", fill);
+      timeline.querySelectorAll(".exp-row").forEach((row) => {
+        row.classList.toggle("passed", row.getBoundingClientRect().top + 52 < line);
+      });
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  // Ctrl/⌘ + K or "/" opens the command menu
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setPaletteOpen((o) => !o);
+      } else if (e.key === "/" && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) {
+        e.preventDefault();
+        setPaletteOpen(true);
       }
-    }, 150);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Live Pacific time in the footer
+  useEffect(() => {
+    const id = setInterval(() => setTime(pacificTime()), 30000);
     return () => clearInterval(id);
   }, []);
 
+  // Buttons that lean toward the cursor
   useEffect(() => {
-    const onScroll = () => {
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
+    if (prefersReducedMotion()) return;
+    const els = document.querySelectorAll("[data-magnetic]");
+    const move = (e) => {
+      const el = e.currentTarget;
+      const rect = el.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      el.style.transform = `translate(${dx * 0.2}px, ${dy * 0.3}px)`;
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const reset = (e) => {
+      e.currentTarget.style.transform = "";
+    };
+    els.forEach((el) => {
+      el.addEventListener("pointermove", move);
+      el.addEventListener("pointerleave", reset);
+    });
+    return () =>
+      els.forEach((el) => {
+        el.removeEventListener("pointermove", move);
+        el.removeEventListener("pointerleave", reset);
+      });
   }, []);
 
+  // A hello for anyone who opens dev tools
   useEffect(() => {
-    const sections = document.querySelectorAll("section[id]");
+    console.log(
+      "%cHey, thanks for looking under the hood 👋",
+      "font-size:14px;font-weight:600;",
+      `\nIf you're hiring, I'd love to chat: ${EMAIL}`
+    );
+  }, []);
+
+  // Highlight current section in nav
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) setActiveSection(e.target.id);
         });
       },
-      { rootMargin: "-20% 0px -70% 0px" }
+      { rootMargin: "-30% 0px -60% 0px" }
     );
-    sections.forEach((s) => observer.observe(s));
+    document.querySelectorAll("section[id]").forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, []);
 
+  // Fade/slide elements in as they enter the viewport
   useEffect(() => {
-    const els = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -262,237 +506,198 @@ export default function App() {
           }
         });
       },
-      { threshold: 0.08 }
+      { threshold: 0.12 }
     );
-    els.forEach((el) => observer.observe(el));
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  const handleNavClick = useCallback((e, href) => {
-    e.preventDefault();
+  // Soft spotlight that follows the cursor across the page
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    let frame;
+    const onMove = (e) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        document.documentElement.style.setProperty("--mx", `${e.clientX}px`);
+        document.documentElement.style.setProperty("--my", `${e.clientY}px`);
+      });
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  const scrollToSection = (href) => {
     const target = document.querySelector(href);
     if (!target) return;
-    const headerHeight = document.querySelector(".header")?.offsetHeight ?? 72;
-    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
+    const top = target.getBoundingClientRect().top + window.scrollY - 72;
     window.scrollTo({ top, behavior: "smooth" });
-  }, []);
+  };
 
-  useEffect(() => {
-    const trail = document.createElement("div");
-    trail.className = "cursor-trail";
-    document.body.appendChild(trail);
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    scrollToSection(href);
+  };
 
-    const handleMove = (e) => {
-      const dot = document.createElement("span");
-      dot.className = `trail-dot${hoveringRef.current ? " hover" : ""}`;
-      dot.style.left = `${e.clientX}px`;
-      dot.style.top = `${e.clientY}px`;
-      trail.appendChild(dot);
-      requestAnimationFrame(() => dot.classList.add("fade"));
-      setTimeout(() => dot.remove(), 700);
-    };
+  const showToast = (message) => {
+    clearTimeout(toastTimer.current);
+    setToast({ message, show: true });
+    toastTimer.current = setTimeout(() => setToast((t) => ({ ...t, show: false })), 2200);
+  };
 
-    const setHover = (v) => () => { hoveringRef.current = v; };
-    const targets = document.querySelectorAll("a, button, .button, input, textarea, [data-interactive]");
-    targets.forEach((el) => {
-      el.addEventListener("pointerenter", setHover(true));
-      el.addEventListener("pointerleave", setHover(false));
-    });
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      showToast("Email copied to clipboard");
+    } catch {
+      window.location.href = `mailto:${EMAIL}`;
+    }
+  };
 
-    window.addEventListener("pointermove", handleMove, { passive: true });
-    return () => {
-      window.removeEventListener("pointermove", handleMove);
-      targets.forEach((el) => {
-        el.removeEventListener("pointerenter", setHover(true));
-        el.removeEventListener("pointerleave", setHover(false));
-      });
-      trail.remove();
-    };
-  }, []);
+  const openUrl = (url) => window.open(url, "_blank", "noopener");
+
+  const actions = [
+    ...navLinks.map((l) => ({
+      label: `Go to ${l.label}`,
+      group: "Navigate",
+      icon: "arrowRight",
+      run: () => scrollToSection(l.href),
+    })),
+    { label: "Copy email", group: "Contact", icon: "copy", run: copyEmail },
+    { label: "Send an email", group: "Contact", icon: "mail", run: () => (window.location.href = `mailto:${EMAIL}`) },
+    ...heroLinks
+      .filter((l) => l.external)
+      .map((l) => ({ label: `Open ${l.label}`, group: "Links", icon: l.icon, run: () => openUrl(l.href) })),
+    ...projects.map((p) => ({ label: p.title, group: "Projects", icon: "arrow", run: () => openUrl(p.href) })),
+  ];
 
   return (
     <div className="page">
-      <ParticleBackground />
-      <div className="progress-bar" style={{ width: `${scrollProgress}%` }} />
+      <div className="spotlight" aria-hidden="true" />
+      <div className="grid-bg" aria-hidden="true" />
+      <div className="progress-bar" style={{ transform: `scaleX(${scrollProgress / 100})` }} />
 
-      <header className="header">
-        <nav className="nav">
-          <a className="logo" href="#about" onClick={(e) => handleNavClick(e, "#about")}>
-            <span className="typing-text">{displayedName}</span>
-            <span className="cursor-blink">|</span>
+      <header className={`nav${navVisible ? " show" : ""}`}>
+        <a href="#top" className="nav-name" onClick={(e) => handleNavClick(e, "#top")}>
+          {NAME}
+        </a>
+        <nav className="nav-links">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className={activeSection === link.href.slice(1) ? "active" : ""}
+              onClick={(e) => handleNavClick(e, link.href)}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        <button className="nav-search" onClick={() => setPaletteOpen(true)} aria-label="Open command menu">
+          <Icon name="search" size={14} />
+          <kbd>{modKey} K</kbd>
+        </button>
+      </header>
+
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} actions={actions} />
+
+      <div className={`toast${toast.show ? " show" : ""}`} role="status" aria-live="polite">
+        <Icon name="copy" size={14} />
+        {toast.message}
+      </div>
+
+      <main className="container">
+        <section id="top" className="hero">
+          <div className="avatar">
+            <img src="/icons/newHeadshot.jpeg" alt="James Ruiz headshot" />
+          </div>
+
+          <TypedName text={NAME} />
+
+          <a className="status" href="#experience" onClick={(e) => handleNavClick(e, "#experience")}>
+            <span className="pulse" />
+            Incoming SWE Intern at Harbinger Motors · Jan 2027
           </a>
-          <div className="nav-links">
-            {navLinks.map((link) => (
+
+          <div className="hero-links">
+            {heroLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className={activeSection === link.href.slice(1) ? "active" : ""}
-                onClick={(e) => handleNavClick(e, link.href)}
-                data-interactive
+                {...(link.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                data-magnetic
               >
-                {link.label}
+                <Icon name={link.icon} />
+                <span>{link.label}</span>
               </a>
             ))}
           </div>
-        </nav>
-      </header>
 
-      <main>
-        <section id="about" className="section hero">
-          <div className="hero-content">
-            <p className="eyebrow">CS @ UC Irvine</p>
-            <h1>James Ruiz</h1>
-            <div className="hero-copy">
-              <p>
-                I build scalable backend systems and full-stack products. I work on cloud-deployed microservices and AI-powered tools. I care about engineering things that actually work at scale.
-              </p>
-              <p>
-                Most recently, I was a Software Engineering Intern at ProGroup, working on production data pipelines and multi-tenant backend services. Expected to graduate June 2027.
-              </p>
-            </div>
-            <div className="icon-actions">
-              <a
-                className="icon-btn"
-                href="https://github.com/imjamesruiz"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                data-interactive
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                  <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                </svg>
-              </a>
-              <a
-                className="icon-btn"
-                href="https://www.linkedin.com/in/james-ruiz-a61157246/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-                data-interactive
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-              </a>
-              <a
-                className="icon-btn icon-btn-resume"
-                href="mailto:jamesgr@uci.edu?subject=Resume%20Request&body=Hi%20James%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20request%20your%20resume.%0A%0AThanks!"
-                aria-label="Request resume via email"
-                data-interactive
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
-                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="12" y1="12" x2="12" y2="18" />
-                  <polyline points="9 15 12 18 15 15" />
-                </svg>
-                request resume
-              </a>
-            </div>
+          <button className="kbd-hint" onClick={() => setPaletteOpen(true)}>
+            Press <kbd>{modKey}</kbd> <kbd>K</kbd> to jump anywhere
+          </button>
+        </section>
+
+        <div className="marquee reveal" aria-hidden="true">
+          <div className="marquee-track">
+            {[...marquee, ...marquee].map((item, i) => (
+              <span key={i}>{item}</span>
+            ))}
           </div>
-          <div className="hero-photo">
-            <div className="photo-ring">
-              <img src="/icons/newHeadshot.jpeg" alt="James Ruiz headshot" />
+        </div>
+
+        <section id="experience" className="section">
+          <h2 className="section-heading reveal">Experience</h2>
+          <div className="timeline" ref={timelineRef}>
+            <div className="timeline-rail" aria-hidden="true">
+              <div className="timeline-fill" />
             </div>
+            {experience.map((item) => (
+              <article key={item.company + item.role} className="exp-row reveal">
+                <span className="exp-dot" aria-hidden="true" />
+                <span className="exp-dates">
+                  {item.dates}
+                  {item.upcoming && <span className="badge">Upcoming</span>}
+                </span>
+                <div className="exp-body">
+                  <a className="exp-company" href={item.link} target="_blank" rel="noreferrer">
+                    <span>{item.company}</span>
+                    {item.logo ? (
+                      <img src={item.logo} alt="" />
+                    ) : (
+                      <span className="logo-initials">{item.initials}</span>
+                    )}
+                  </a>
+                  <p className="exp-role">{item.role}</p>
+                  <p className="exp-desc">{item.description}</p>
+                  {item.tech.length > 0 && <p className="tech-line">{item.tech.join(" · ")}</p>}
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
         <section id="projects" className="section">
-          <div className="section-title reveal">
-            <h2>Projects</h2>
-            <p>Selected work focused on full-stack engineering and AI experiences.</p>
-          </div>
-          <div className="project-list">
-            {projects.map((project, i) => (
-              <article
-                key={project.title}
-                className="project-row reveal"
-                style={{ transitionDelay: `${i * 0.07}s` }}
-              >
-                <a
-                  className="project-media"
-                  href={project.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  data-interactive
-                >
-                  <img src={project.image} alt={`${project.title} preview`} />
-                </a>
-                <div className="project-content">
-                  <div>
-                    <h3>{project.title}</h3>
-                    <p className="muted">{project.description}</p>
-                  </div>
-                  <div className="tags">
-                    {project.tech.map((item) => (
-                      <span key={item}>{item}</span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="experience" className="section">
-          <div className="section-title reveal">
-            <h2>Experience</h2>
-            <p>Industry and research work with a focus on impactful software delivery.</p>
-          </div>
-          <div className="stack">
-            {experience.map((item, i) => (
-              <article
-                key={item.company}
-                className="card experience-card reveal"
-                style={{ transitionDelay: `${i * 0.1}s` }}
-              >
-                <div className="experience-header">
-                  <div>
-                    <h3>{item.role}</h3>
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="company"
-                      data-interactive
-                    >
-                      {item.logo ? (
-                        <img src={item.logo} alt={`${item.company} logo`} />
-                      ) : (
-                        <span className="logo-initials">{item.initials}</span>
-                      )}
-                      {item.company}
-                    </a>
-                  </div>
-                  <span className="muted dates">{item.dates}</span>
-                </div>
-                <ul>
-                  {item.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
-              </article>
+          <h2 className="section-heading reveal">Projects</h2>
+          <div className="project-grid">
+            {projects.map((project) => (
+              <ProjectCard key={project.title} project={project} />
             ))}
           </div>
         </section>
 
         <section id="skills" className="section">
-          <div className="section-title reveal">
-            <h2>Skills</h2>
-            <p>Languages, tools, and frameworks used across projects.</p>
-          </div>
-          <div className="skill-groups">
-            {skillGroups.map((group, i) => (
-              <div
-                key={group.category}
-                className="skill-group reveal"
-                style={{ transitionDelay: `${i * 0.08}s` }}
-              >
+          <h2 className="section-heading reveal">Skills</h2>
+          <div className="skills">
+            {skillGroups.map((group) => (
+              <div key={group.category} className="skill-row reveal">
                 <span className="skill-category">{group.category}</span>
-                <div className="tags">
+                <div className="chips">
                   {group.items.map((item) => (
-                    <span key={item}>{item}</span>
+                    <span key={item} className="chip">{item}</span>
                   ))}
                 </div>
               </div>
@@ -500,33 +705,28 @@ export default function App() {
           </div>
         </section>
 
-        <section id="contact" className="section">
-          <div className="section-title reveal">
-            <h2>Contact</h2>
-            <p>Let&apos;s build something together.</p>
-          </div>
-          <form className="contact reveal" action="mailto:jamesgr@uci.edu" method="get">
-            <label>
-              Subject
-              <input type="text" name="subject" placeholder="My Subject" data-interactive />
-            </label>
-            <label>
-              Email
-              <input type="email" name="email" placeholder="jamesgr@uci.edu" data-interactive />
-            </label>
-            <label>
-              Message
-              <textarea name="body" rows="6" placeholder="Your message" data-interactive />
-            </label>
-            <button type="submit" className="button primary" data-interactive>
-              Send
+        <section id="contact" className="section contact reveal">
+          <h2>Let&apos;s build something.</h2>
+          <p>Open to software engineering internships and new-grad roles. My inbox is always open.</p>
+          <div className="contact-actions">
+            <a className="cta" href={`mailto:${EMAIL}`} data-magnetic>
+              <Icon name="mail" />
+              {EMAIL}
+            </a>
+            <button className="ghost-btn" onClick={copyEmail} data-magnetic>
+              <Icon name="copy" />
+              Copy
             </button>
-          </form>
+          </div>
         </section>
       </main>
 
-      <footer className="footer">
-        <span>© 2026 James Ruiz</span>
+      <footer className="footer container">
+        <span>© {new Date().getFullYear()} James Ruiz</span>
+        <span className="local-time">
+          <span className="live-dot" />
+          Irvine, CA · {time} PT
+        </span>
       </footer>
     </div>
   );
